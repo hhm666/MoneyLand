@@ -1,0 +1,11 @@
+# 每一平方格的价格
+square-price: 100
+
+# 回收时每一平方格价格
+sell-square-price: 50
+
+# 必须购买领地才能破坏/放置的世界
+land-worlds: []
+
+# 无法购买领地的世界
+no-land-worlds: []

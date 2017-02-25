@@ -1,0 +1,60 @@
+name: MoneyLand
+api: ["1.0.0"]
+author: Him188
+load: POSTWORLD
+version: "1.3.0"
+description: "A nice land plugin for Nukkit"
+main: money.MoneyLand
+
+depend:
+- Money
+
+updateInfo-1.0.1:
+- "2016-06-06 修复一个逻辑错误"
+
+updateInfo-1.1.0:
+- "2016-06-08 新增事件"
+
+updateInfo-1.2.0:
+- "2016-12-09 代码精简, API优化"
+
+updateInfo-1.3.0:
+- "2016-12-17 /landop 完成"
+- "2016-12-17 API小优化"
+- "2016-12-17 现在将在 onEnable 中读取配置. 以便 /reload 重载配置"
+
+commands:
+  startp:
+    permission: Money.MoneyLand.command.startp
+    aliases: ["起始点"]
+    description: Save land start position | 保存领地起始点
+    usage: "/startp"
+  endp:
+    permission: Money.MoneyLand.command.endp
+    aliases: ["结束点"]
+    description: Save land end position | 保存领地结束点
+    usage: "/endp"
+  land:
+    permission: Money.MoneyLand.command.land
+    aliases: ["领地"]
+    description: Land Command | 领地命令
+    usage: "/land <buy|whose|sell|goto|list|name>   /领地 <购买|主人|回收|前往|列表|改名>"
+  landop:
+    permission: Money.MoneyLand.command.landop
+    aliases: ["领地op"]
+    description: Land OP Command | 领地OP命令
+    usage: "/landop <remove | see | list>   /领地 <删除 | 查看 | 列表>"
+
+permissions:
+  Money.MoneyLand.command.startp:
+    default: true
+    description: Save land start position | 保存领地起始点
+  Money.MoneyLand.command.endp:
+    default: true
+    description: Save land end position | 保存领地结束点
+  Money.MoneyLand.command.land:
+    default: true
+    description: Land Command | 领地命令
+  Money.MoneyLand.command.landop:
+    default: op
+    description: Land OP Command | 领地OP命令
