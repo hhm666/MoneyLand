@@ -2,7 +2,7 @@ name: MoneyLand
 api: ["1.0.0"]
 author: Him188
 load: POSTWORLD
-version: "1.3.0"
+version: "1.3.1"
 description: "A nice land plugin for Nukkit"
 main: money.MoneyLand
 
@@ -22,6 +22,9 @@ updateInfo-1.3.0:
 - "2016-12-17 /landop 完成"
 - "2016-12-17 API小优化"
 - "2016-12-17 现在将在 onEnable 中读取配置. 以便 /reload 重载配置"
+
+updateInfo-1.3.1:
+- "2017-03-11 修复 /landop bug"
 
 commands:
   startp:

@@ -91,7 +91,14 @@ public final class MoneyLand extends PluginBase implements MoneyLandAPI, Listene
 
 		loadData();
 		dataFolder = getDataFolder().getPath();
-		Server.getInstance().getScheduler().scheduleDelayedTask(this::saveData, 20 * 60 * 2);
+
+		try {
+			Server.getInstance().getScheduler().scheduleDelayedTask(this, this::saveData, 20 * 60 * 2);
+		} catch (Exception e) {
+			//noinspection deprecation
+			Server.getInstance().getScheduler().scheduleDelayedTask(this::saveData, 20 * 60 * 2);
+		}
+
 		Server.getInstance().getPluginManager().registerEvents(this, this);
 
 		PluginCommand cmd;
@@ -165,7 +172,7 @@ public final class MoneyLand extends PluginBase implements MoneyLandAPI, Listene
 					return "请使用: /landop <remove | see | list>   /领地 <删除 | 查看 | 列表>";
 				}
 
-				switch (args[1]) {
+				switch (args[0]) {
 					case "list":
 					case "列表":
 						final Integer page = (args.length >= 2) ? new Integer(args[1]) : 0;
@@ -309,9 +316,9 @@ public final class MoneyLand extends PluginBase implements MoneyLandAPI, Listene
 							Double sellMoney;
 
 							Money.getInstance().setMoney(sender,
-							                             Money.getInstance().getMoney(sender) +
-									                             (sellMoney = Math.abs((start.x - end.getX()) * (start.z - end.getZ()))
-											                             * new Long(config.getOrDefault("sell-square-price", "50").toString())));
+									Money.getInstance().getMoney(sender) +
+											(sellMoney = Math.abs((start.x - end.getX()) * (start.z - end.getZ()))
+													* new Long(config.getOrDefault("sell-square-price", "50").toString())));
 							removeLand(landId);
 
 							saveData();
@@ -329,9 +336,9 @@ public final class MoneyLand extends PluginBase implements MoneyLandAPI, Listene
 							Double sellMoney;
 
 							Money.getInstance().setMoney(sender,
-							                             Money.getInstance().getMoney(sender) +
-									                             (sellMoney = Math.abs((start.x - end.getX()) * (start.z - end.getZ()))
-											                             * new Long(config.getOrDefault("sell-square-price", "50").toString())));
+									Money.getInstance().getMoney(sender) +
+											(sellMoney = Math.abs((start.x - end.getX()) * (start.z - end.getZ()))
+													* new Long(config.getOrDefault("sell-square-price", "50").toString())));
 							removeLand(landId);
 							sender.sendMessage("卖出成功, 获得 " + sellMoney.toString());
 							saveData();
