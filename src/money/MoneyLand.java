@@ -11,6 +11,8 @@ import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.BlockPlaceEvent;
+import cn.nukkit.event.player.PlayerInteractEvent;
+import cn.nukkit.item.Item;
 import cn.nukkit.level.Position;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
@@ -33,7 +35,7 @@ public final class MoneyLand extends PluginBase implements MoneyLandAPI, Listene
 	}
 
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onBreak(BlockBreakEvent event) {
 		if ((!checkPermission(event.getPlayer(), event.getBlock())) && (!event.getPlayer().isOp())) {
 			event.getPlayer().sendMessage(TextFormat.RED + "你没有权限使用这里");
@@ -41,8 +43,20 @@ public final class MoneyLand extends PluginBase implements MoneyLandAPI, Listene
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlace(BlockPlaceEvent event) {
+		if ((!checkPermission(event.getPlayer(), event.getBlock())) && (!event.getPlayer().isOp())) {
+			event.getPlayer().sendMessage(TextFormat.RED + "你没有权限使用这里");
+			event.setCancelled(true);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onWater(PlayerInteractEvent event){
+		if (event.getItem().getId() != Item.BUCKET && event.getItem().getId() != Item.FLINT) {
+			return;
+		}
+
 		if ((!checkPermission(event.getPlayer(), event.getBlock())) && (!event.getPlayer().isOp())) {
 			event.getPlayer().sendMessage(TextFormat.RED + "你没有权限使用这里");
 			event.setCancelled(true);
